@@ -2,8 +2,17 @@ package com.kreitek.editor.commands;
 
 import com.kreitek.editor.*;
 
+import java.util.ArrayList;
+
+
 public class CommandFactory {
     private static final CommandParser commandParser = new CommandParser();
+    private ArrayList<Command> commandHistorial;
+
+    public CommandFactory(ArrayList<Command> commandHistorial) {
+
+        this.commandHistorial = commandHistorial;
+    }
 
     public Command getCommand(String commandLine) throws BadCommandException, ExitException {
         String[] args = commandParser.parse(commandLine);
@@ -17,8 +26,7 @@ public class CommandFactory {
     }
 
     private Command createUndoCommand() {
-        // TODO create undo command
-        return null;
+        return new UndoCommand(commandHistorial);
     }
 
     private Command createDeleteCommand(String lineNumber) {

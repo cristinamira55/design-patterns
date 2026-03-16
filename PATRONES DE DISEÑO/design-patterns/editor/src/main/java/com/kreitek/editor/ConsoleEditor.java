@@ -15,9 +15,12 @@ public class ConsoleEditor implements Editor {
     public static final String TEXT_PURPLE = "\u001B[35m";
     public static final String TEXT_CYAN = "\u001B[36m";
     public static final String TEXT_WHITE = "\u001B[37m";
-
-    private final CommandFactory commandFactory = new CommandFactory();
+    //añado array de comandos
+    private ArrayList<Command> commandHistorial = new ArrayList<>();
+    private final CommandFactory commandFactory = new CommandFactory(commandHistorial);
     private ArrayList<String> documentLines = new ArrayList<String>();
+
+
 
     @Override
     public void run() {
@@ -27,6 +30,9 @@ public class ConsoleEditor implements Editor {
             try {
                 Command command = commandFactory.getCommand(commandLine);
                 command.execute(documentLines);
+                //añado command
+                commandHistorial.add(command);
+
             } catch (BadCommandException e) {
                 printErrorToConsole("Bad command");
             } catch (ExitException e) {

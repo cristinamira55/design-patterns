@@ -7,17 +7,26 @@ import java.util.ArrayList;
 public class UpdateCommand implements Command {
     private final String text;
     private final int lineNumber;
+    private String previousText;
 
     public UpdateCommand(String text, int lineNumber) {
         this.text = text;
         this.lineNumber = lineNumber;
+
     }
 
     @Override
     public void execute(ArrayList<String> documentLines) {
-        if (documentLines.size() > lineNumber)
+
+        if (documentLines.size() > lineNumber) {
+            previousText = documentLines.get(lineNumber);
             documentLines.set(lineNumber, text);
-        else
-            documentLines.add(text);
+        }
+        else documentLines.add(text);
+    }
+
+    @Override
+    public void undo(ArrayList<String> documentLines) {
+        documentLines.set(lineNumber, previousText );
     }
 }

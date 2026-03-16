@@ -15,4 +15,9 @@ public class AppendCommand implements Command {
     public void execute(ArrayList<String> documentLines) {
         documentLines.add(text);
     }
+
+    @Override
+    public void undo(ArrayList<String> documentLines) {
+        documentLines.remove(documentLines.size() -1);
+    }
 }
