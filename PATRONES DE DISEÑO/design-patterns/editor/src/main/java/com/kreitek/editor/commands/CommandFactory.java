@@ -15,14 +15,20 @@ public class CommandFactory {
     }
 
     public Command getCommand(String commandLine) throws BadCommandException, ExitException {
+
         String[] args = commandParser.parse(commandLine);
-        return switch (args[0]) {
+
+        Command command = switch (args[0]) {
             case "a" -> createAppendCommand(args[1]);
             case "u" -> createUpdateCommand(args[1], args[2]);
             case "d" -> createDeleteCommand(args[1]);
             case "undo" -> createUndoCommand();
             default -> throw new ExitException();
         };
+        if (!(command instanceof UndoCommand)) {
+            commandHistorial.add(command);
+        }
+        return command;
     }
 
     private Command createUndoCommand() {

@@ -30,8 +30,6 @@ public class ConsoleEditor implements Editor {
             try {
                 Command command = commandFactory.getCommand(commandLine);
                 command.execute(documentLines);
-                //añado command
-                commandHistorial.add(command);
 
             } catch (BadCommandException e) {
                 printErrorToConsole("Bad command");
