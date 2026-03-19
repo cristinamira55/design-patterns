@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Pets" />
         <module name="editor" />
+        <module name="state" />
       </profile>
     </annotationProcessing>
   </component>
